@@ -24,6 +24,10 @@ slide:[http://www.cs.dartmouth.edu/~qliu/PDF/steinslides16.pdf](http://www.cs.da
 - 検証  
     主に一次元のp(x)への収束性の評価とベイジアンニューラルネットワークの推定精度の評価
 
+- 後の論文
+    Stein Variational Gradient Descent as Gradient Flow:
+    サンプル系列が目標分布に収束することを示した．
+
 ## 定式化：
 
 $$ q^{\*} = \mathrm\{arg\min\}\_\{q\in Q\} \{\mathrm\{KL\}(q(x)\|p(x))
@@ -40,8 +44,11 @@ $x\_i\^{l+1} \gets x\_i^{l} + \epsilon\_l \hat{\phi}^\* (x\_i\^l)\quad $
 $\mathrm{where} \quad \hat{\phi}^\*(x) = \frac{1}{n} \sum\_{j=1}^n\[ k(x^l\_j, x) \
 \nabla\_{x\_j^l} \log{p({x\_j^l})} + \nabla\_{x\_j^l}k(x\_{j}\^{l}, x)\]$
 
-証明：
-$q\_{\[T\]}(z) = q(\mathbf{T}^{-1}(z)) \cdot | \det(\nabla\_z\mathbf{T}^{-1}(z))|$
-- Th.3-1
-- Lemma 3-2
-- Th.3-3
+証明方針：
+$x^{l+1} \gets x^{l} + \epsilon \phi(x)$でサンプル系列を計算するとき，
+$x^{l+1}$の分布によるKLダイバージェンスを$x^{l}$の分布から推定したい．
+正確にはKLの勾配を計算したい．MCMCの逆関数法と同じように勾配を計算すると，
+Th.3-1が証明できる．
+これを$phi(x)$の変分に拡張したのが，Th.3-3
+
+Lemma3.2を理解するにはKSDについての論文が必要[8-10]
